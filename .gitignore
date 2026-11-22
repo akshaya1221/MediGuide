@@ -12,6 +12,7 @@ backend/storage/
 backend/.coverage
 frontend/node_modules/
 frontend/dist/
+*.tsbuildinfo
 *.log
 *.db
 .DS_Store

@@ -1,0 +1,11 @@
+export type User = { id: string; full_name: string; email: string; role: string; created_at: string }
+export type DocumentStatus = 'uploaded' | 'processing' | 'ready' | 'needs_review' | 'failed'
+export type DocumentSummary = { id: string; original_name: string; doc_type: string; content_type: string; file_size: number; status: DocumentStatus; extraction_confidence: number | null; uploaded_at: string; processed_at: string | null; error_message: string | null }
+export type FollowUp = { id: string; document_id: string; instruction: string; due_date: string | null; status: string; reminder_set: boolean; source_text: string | null }
+export type Medication = { id: string; document_id: string; name: string; dosage_text: string | null; timing_text: string | null; needs_confirmation: boolean; source_text: string | null }
+export type TimelineEvent = { id: string; document_id: string; event_type: string; event_date: string | null; summary: string }
+export type Question = { id: string; document_id: string | null; question_text: string; status: string; created_at: string }
+export type ExtractedItem = { id: string; data_type: string; item_name: string; item_value: string; unit: string | null; confidence: number; source_text: string | null; verified: boolean }
+export type Explanation = { id: string; simple_text: string; important_points: string[]; cautions: string[]; citations: { chunk: number; quote: string }[]; model_name: string; generated_at: string }
+export type DocumentDetail = DocumentSummary & { extracted_text: string | null; items: ExtractedItem[]; explanation: Explanation | null; followups: FollowUp[]; medications: Medication[]; timeline_events: TimelineEvent[]; questions: Question[] }
+export type DashboardStats = { document_count: number; ready_count: number; pending_followups: number; medication_count: number; needs_review_count: number; recent_documents: DocumentSummary[]; upcoming_followups: FollowUp[] }
