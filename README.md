@@ -131,6 +131,28 @@ npm install
 npm run dev
 ```
 
+## Render and Vercel deployment
+
+The repository includes a root-level `render.yaml` Blueprint and `frontend/vercel.json`.
+
+### Render API and PostgreSQL
+
+1. In Render, create a new Blueprint from `https://github.com/akshaya1221/MediGuide`.
+2. Render reads `render.yaml` and creates `mediguide-api` plus `mediguide-db` in Singapore.
+3. After the API becomes healthy, copy its `https://mediguide-api-....onrender.com` URL.
+4. Optionally add `OPENAI_API_KEY` in the web service's environment settings. Without it, the labelled safe fallback remains active.
+
+The free Blueprint uses `/tmp` for uploaded documents, so files are ephemeral and may disappear during restarts or redeploys. For real patient data, upgrade the web service and attach a persistent encrypted disk or move uploads to encrypted object storage before use.
+
+### Vercel frontend
+
+1. Import the same GitHub repository into Vercel.
+2. Set the project Root Directory to `frontend` and keep the detected Vite build settings.
+3. Add `VITE_API_URL=https://<your-render-service>.onrender.com/api/v1` for Production, Preview and Development.
+4. Deploy. The included SPA rewrite keeps React Router routes working on refresh.
+
+The Render service accepts HTTPS origins ending in `.vercel.app`. For a custom domain, replace `CORS_ORIGIN_REGEX` with a narrow expression for that domain or add the exact origin to `CORS_ORIGINS`.
+
 ## Tests and validation
 
 ```powershell

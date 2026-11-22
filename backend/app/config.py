@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     file_encryption_key: str | None = None
     max_upload_mb: int = Field(default=15, ge=1, le=50)
     cors_origins: list[str] = ["http://localhost:5173"]
+    cors_origin_regex: str | None = None
 
     model_config = SettingsConfigDict(env_file=("../.env", ".env"), extra="ignore")
 
@@ -26,6 +27,13 @@ class Settings(BaseSettings):
     def split_origins(cls, value: object) -> object:
         if isinstance(value, str):
             return [part.strip() for part in value.split(",") if part.strip()]
+        return value
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def use_psycopg_driver(cls, value: object) -> object:
+        if isinstance(value, str) and value.startswith("postgresql://"):
+            return value.replace("postgresql://", "postgresql+psycopg://", 1)
         return value
 
 

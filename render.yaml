@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: mediguide-api
+    runtime: docker
+    rootDir: backend
+    plan: free
+    region: singapore
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mediguide-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: STORAGE_PATH
+        value: /tmp/mediguide-storage
+      - key: MAX_UPLOAD_MB
+        value: 15
+      - key: CORS_ORIGINS
+        value: '["http://localhost:5173"]'
+      - key: CORS_ORIGIN_REGEX
+        value: '^https://.*\.vercel\.app$'
+
+databases:
+  - name: mediguide-db
+    databaseName: mediguide
+    user: mediguide
+    plan: free
+    region: singapore
+
