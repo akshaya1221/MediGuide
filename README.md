@@ -4,6 +4,16 @@ MediGuide AI is a full-stack patient medical record simplification and follow-up
 
 > **Medical safety:** MediGuide is an educational record-organization tool. It does not diagnose disease, prescribe medicine, change doses, independently evaluate drug interactions, or replace a qualified healthcare professional. Users must compare extracted details with the original record and confirm medical decisions with a clinician.
 
+## Live deployment
+
+- **Run MediGuide AI:** [https://medi-guide-ebon.vercel.app](https://medi-guide-ebon.vercel.app)
+- **Create an account or sign in:** [https://medi-guide-ebon.vercel.app/auth](https://medi-guide-ebon.vercel.app/auth)
+- **Interactive API documentation:** [https://mediguide-api-esh7.onrender.com/docs](https://mediguide-api-esh7.onrender.com/docs)
+- **API health check:** [https://mediguide-api-esh7.onrender.com/health](https://mediguide-api-esh7.onrender.com/health)
+- **GitHub repository:** [https://github.com/akshaya1221/MediGuide](https://github.com/akshaya1221/MediGuide)
+
+The API runs on Render's free instance and may take approximately 50 seconds to wake after inactivity. The first sign-in or upload request can therefore be slower than later requests.
+
 ## What is implemented
 
 - Secure registration and JWT authentication with Argon2 password hashing
